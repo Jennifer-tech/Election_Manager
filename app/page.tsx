@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <div className="flex items-center py-3 px-36 md:px-28">
+      <div className="flex items-center py-3 px-5 lg:px-36 md:px-28">
         <h1 className="text-3xl text-blue-950 font-semibold">
           Welcome Chimaobi,
         </h1>
