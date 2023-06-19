@@ -5,7 +5,7 @@ import React from "react";
 const ElectionPosition = () => {
   return (
     <div className="flex flex-col">
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-6">
         <h1 className="text-xl font-semibold text-blue-950">
           SEES ELECTION 2023
         </h1>
