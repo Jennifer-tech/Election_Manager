@@ -2,7 +2,7 @@ import { ELECTION_POSITION } from "@/utils/config/urls";
 import Link from "next/link";
 import React from "react";
 
-const ElectionYear = () => {
+const Elections = () => {
   return (
     <div className="flex flex-col mt-10">
       <Link href={ELECTION_POSITION}>
@@ -23,4 +23,4 @@ const ElectionYear = () => {
   );
 };
 
-export default ElectionYear;
+export default Elections;
