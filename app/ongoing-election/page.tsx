@@ -16,13 +16,13 @@ const ElectionPosition = () => {
             Presidential
           </div>
         </Link>
-        <div className="border border-gray-300 mx-5 mb-3 p-5 rounded-lg">
+        <div className="border border-gray-300 mx-5 mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer">
           Secretary
         </div>
-        <div className="border border-gray-300 mx-5 mb-3 p-5 rounded-lg">
+        <div className="border border-gray-300 mx-5 mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer">
           Treasurer
         </div>
-        <div className="border border-gray-300 mx-5 mb-3 p-5 rounded-lg">
+        <div className="border border-gray-300 mx-5 mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer">
           Financial Secretary
         </div>
       </div>
