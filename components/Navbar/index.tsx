@@ -25,8 +25,8 @@ const Navbar = () => {
             className="relative outline-none flex flex-row items-center"
           >
             <div className="flex flex-row items-center justify-center space-x-0">
-              <MdHowToVote className="w-10 h-10 fill-blue-950 md:w-20 md:h-20" />
-              <p className="text-base font-medium leading-4 text-blue-950 md:text-xl md:leading-5">
+              <MdHowToVote className="w-10 h-10 fill-blue-950 md:w-14 md:h-14" />
+              <p className="text-base font-medium leading-4 text-blue-950 md:text-lg md:leading-5">
                 Election<br />Manager
               </p>
             </div>

@@ -1,4 +1,4 @@
-import { SELECTED_POSITION } from "@/utils/config/urls";
+import { ELECTORAL_POSITION_STAT } from "@/utils/config/urls";
 import Link from "next/link";
 import React from "react";
 
@@ -11,7 +11,7 @@ const ElectionPosition = () => {
         </h1>
       </div>
       <div className="flex flex-col mt-10">
-        <Link href={SELECTED_POSITION}>
+        <Link href={ELECTORAL_POSITION_STAT}>
           <div className="border border-gray-300 hover:shadow-lg mx-5 mb-3 p-5 rounded-lg cursor-pointer">
             Presidential
           </div>
