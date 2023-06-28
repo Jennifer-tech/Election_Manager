@@ -1,6 +1,8 @@
 export const HOME_ROUTE = "/";
+export const AUTH_ROUTE = "/auth";
 export const ELECTIONS = "/elections";
 export const STATISTICS_ROUTE = "/statistics";
+export const POSITION_STATISTICS_ROUTE = (id: string) => `/statistics/${id}`
 export const ELECTION_POSITION = "/election-position";
 export const SELECTED_POSITION = "/selected-position";
 export const SELECTED_CANDIDATE = "/selected-candidate";

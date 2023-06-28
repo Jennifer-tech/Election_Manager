@@ -35,7 +35,7 @@ const Login = () => {
       };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center w-full text-shadow-200 text-sm lg:text-base font-medium border border-green-950">
+    <div className="flex min-h-[80vh] items-center justify-center w-full text-sm lg:text-base font-medium border border-green-950">
       <div className="flex flex-col items-center relative w-80 h-80 md:w-90 md:h-80 border border-red-950 shadow-md hover:shadow-lg dark:border-b-white-900 rounded-lg">
         <div className="w-full border border-green-600 text-center mt-3">
         {/* <p className="text-lg text-blue-950 text-center">Welcome to <br />SEES voting <br />Application</p> */}
