@@ -17,10 +17,10 @@ export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const store = useGlobalStore((state) => state.store);
 
-  console.log(store.isAuthenticated);
-  useEffect(() => {
-    setIsAuthenticated(!!store?.isAuthenticated);
-  }, []);
+  // console.log(store.isAuthenticated);
+  // useEffect(() => {
+  //   setIsAuthenticated(!!store?.isAuthenticated);
+  // }, []);
 
   const handleClose = () => {
     setCloseElectionForm(true);

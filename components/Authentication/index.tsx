@@ -1,3 +1,5 @@
+'use client'
+
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import Login from "./Login";
@@ -15,8 +17,8 @@ const Authentication = () => {
   const query = searchParams.get(AUTH);
 
   return (
-    <div className="p-10">
-      {query !== Auth_Tab.SIGNUP ? <Login /> : <SignUp />}
+    <div className="p-10 md:w-[60%] lg:w-[50%] mx-auto">
+      {!query || query === Auth_Tab.SIGNUP ? <SignUp /> : <Login />}
     </div>
   );
 };

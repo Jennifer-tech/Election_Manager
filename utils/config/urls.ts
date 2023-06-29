@@ -1,5 +1,4 @@
 export const HOME_ROUTE = "/";
-export const AUTH_ROUTE = "/auth";
 export const ELECTIONS = "/elections";
 export const STATISTICS_ROUTE = "/statistics";
 export const POSITION_STATISTICS_ROUTE = (id: string) => `/statistics/${id}`

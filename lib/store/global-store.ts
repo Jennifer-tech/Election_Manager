@@ -1,3 +1,5 @@
+import { AuthResponse } from "@/utils/endpoints/types/auth.type";
+import { Solitreo } from "next/font/google";
 import { create } from "zustand";
 import {
   createJSONStorage,
@@ -6,42 +8,42 @@ import {
   subscribeWithSelector,
 } from "zustand/middleware";
 
-type Store = {
+interface State {
   store: {
     isAuthenticated?: boolean;
-  };
-};
+  } & Partial<AuthResponse>
+}
 
 type Actions = {
-  setStore: () => void;
+  setStore: (state: State) => void;
   clearStore: () => void;
 };
 
 const GLOBAL_STORE = "election-manager-global-store";
 
 const useGlobalStore = create<
-  Store & Actions,
+  State & Actions,
   [
-    ["zustand/subscribeWithSelector", Store & Actions],
-    ["zustand/devtools", Store & Actions],
+    ["zustand/subscribeWithSelector", State & Actions],
+    ["zustand/devtools", State & Actions]
     // ["zustand/persist", Store & Actions]
   ]
 >(
   subscribeWithSelector(
     devtools(
-        (set, get) => ({
-          store: {
-            isAuthenticated: false,
-          },
-          setStore: () => set((prev) => ({ store: {} }), false, "setStore"),
-          clearStore: () => set({ store: {} }, false, "clearStore"),
-        }),
-    //   persist(
-    //     {
-    //       name: GLOBAL_STORE,
-    //       storage: createJSONStorage(() => localStorage),
-    //     }
-    //   )
+      (set, get) => ({
+        store: {
+          isAuthenticated: false,
+        },
+        setStore: (state) => set((prev) => ({ store: state.store}), false, "setStore"),
+        clearStore: () => set({ store: {} }, false, "clearStore"),
+      })
+      //   persist(
+      //     {
+      //       name: GLOBAL_STORE,
+      //       storage: createJSONStorage(() => localStorage),
+      //     }
+      //   )
     )
   )
 );

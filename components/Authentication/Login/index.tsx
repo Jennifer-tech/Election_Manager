@@ -1,10 +1,14 @@
 "use client";
 
+import Alert, { type Alert as AlertType } from "@/components/Alert";
 import { DotLoader } from "@/components/Loaders";
-import { AUTH_ROUTE } from "@/utils/config/urls";
+import useGlobalStore from "@/lib/store/global-store";
+import { HOME_ROUTE } from "@/utils/config/urls";
+import { _login } from "@/utils/endpoints/controller/auth.controller";
+import { AuthResponse } from "@/utils/endpoints/types/auth.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import * as yup from "yup";
@@ -33,6 +37,18 @@ const ValidationSchema = yup
 
 const Login = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const setStore = useGlobalStore((state) => state.setStore);
+  const [alert, setAlert] = useState<AlertType>({
+    title: "",
+    variant: "warn",
+    onClose: () => closeAlert(),
+    active: false,
+  });
+
+  const closeAlert = () => {
+    setAlert({ ...alert, active: false });
+  };
 
   const {
     handleSubmit,
@@ -42,13 +58,32 @@ const Login = () => {
     resolver: yupResolver(ValidationSchema),
   });
 
-  const onSubmit: SubmitHandler<InputFields> = async (data: InputFields) => {};
+  const onSubmit: SubmitHandler<InputFields> = async (data: InputFields) => {
+    setLoading(true);
+    const res: AuthResponse | undefined = await _login(
+      data,
+      alert,
+      setAlert,
+      setLoading
+    );
+
+    if (res) {
+      setStore({
+        store: {
+          isAuthenticated: true,
+          ...res,
+        },
+      });
+    }
+
+    setLoading(false);
+  };
 
   return (
     <div className="flex flex-col space-y-4">
       <section className="w-fit flex flex-col mt-4 items-center space-y-1 mx-auto">
-        <p className="text-2xl font-semibold">Welcome to Election Manager!</p>
-        <p className="text-lg font-medium">Sign in to continue</p>
+        <p className="text-2xl font-semibold text-center">Welcome to Election Manager!</p>
+        <p className="text-lg font-medium text-center">Sign in to continue</p>
       </section>
 
       <form
@@ -140,10 +175,16 @@ const Login = () => {
           </button>
         )}
 
-        <Link href={`${AUTH_ROUTE}?${AUTH}=${Auth_Tab.SIGNUP}`}>
-          <span className="link font-semibold text-primary-6">Sign up</span>
+        <Link href={`${HOME_ROUTE}?${AUTH}=${Auth_Tab.SIGNUP}`}>
+          <span className="link font-semibold text-primary-6 underline underline-offset-4">
+            Sign up
+          </span>
         </Link>
       </form>
+
+      <span className="z-30 fixed top-3 right-3">
+        <Alert alert={alert} />
+      </span>
     </div>
   );
 };

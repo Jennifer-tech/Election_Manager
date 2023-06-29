@@ -10,16 +10,20 @@ import Statistics from "./Statistics";
 import Vote from "./Vote";
 import MobileSlideNav from "./MobileSlideNav";
 import useGlobalStore from "@/lib/store/global-store";
+import { useIsAuth } from "@/lib/hooks/useIsAuth";
 
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const store = useGlobalStore((state) => state.store);
+  const clearStore = useGlobalStore((state) => state.clearStore);
 
-  console.log(store.isAuthenticated);
-  useEffect(() => {
-    setIsAuthenticated(!!store?.isAuthenticated);
-  }, []);
+  useIsAuth()
+
+  // console.log(store.isAuthenticated);
+  // useEffect(() => {
+  //   setIsAuthenticated(!!store?.isAuthenticated);
+  // }, []);
 
   return (
     <>
@@ -45,15 +49,18 @@ const Navbar = () => {
           </Link>
         </section>
 
-        <section className="hidden sm:flex space-x-3 md:space-x-6 lg:space-x-8 text-sm lg:text-base font-medium">
+        <section className="hidden sm:flex space-x-5 md:space-x-6 lg:space-x-8 text-sm lg:text-base font-medium">
           {store?.isAuthenticated ? (
-            <>
+            <div className="flex space-x-4 items-center">
               <Home />
               <Vote />
               <Statistics />
-            </>
+              <button onClick={() => clearStore()} className="button px-2 py-1">Log out</button>
+            </div>
           ) : null}
         </section>
+
+        <button onClick={() => clearStore()} className="md:hidden button px-2 py-1">Log out</button>
       </div>
       <MobileSlideNav toggle={toggleNav} setToggle={setToggleNav} />
     </>

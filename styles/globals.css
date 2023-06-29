@@ -31,7 +31,11 @@ body {
 }
 
 .button {
-  @apply hover:bg-primary-6/70 hover:cursor-pointer transition-ease rounded-lg bg-primary-6 shadow-primary-2/30 shadow-md text-white disabled:bg-shade-medium disabled:shadow-sm disabled:cursor-not-allowed;
+  @apply hover:bg-blue-950/70 hover:cursor-pointer transition-ease rounded-lg bg-blue-950 shadow-blue-950/30 shadow-md text-white disabled:bg-gray-600 disabled:shadow-sm disabled:cursor-not-allowed;
+}
+
+.link {
+  @apply hover:text-blue-950/70 hover:cursor-pointer transition-ease;
 }
 
 /* Dot loader */

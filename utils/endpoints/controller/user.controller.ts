@@ -1,8 +1,9 @@
 import { Alert } from "@/components/Alert";
 import { Auth } from "../api/auth.api";
+import { Users } from "../api/users.api";
 import { AuthData } from "../types/auth.type";
 
-export const _login = async (
+export const _createUser = async (
   data: AuthData,
   alert: Alert,
   callback?: (alert: Alert) => void,
@@ -13,7 +14,7 @@ export const _login = async (
       throw new Error("Network Error");
     }
 
-    const res = await Auth.login(data);
+    const res = await Users.create(data);
 
     setLoading && setLoading(false);
 
@@ -31,7 +32,7 @@ export const _login = async (
       callback &&
         callback({
           ...alert,
-          title: "Could not log in user",
+          title: "Could not create user",
           variant: "error",
           onClose: () => callback && callback(alert),
           active: true,

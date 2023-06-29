@@ -1,9 +1,9 @@
-export type LoginData = {
-  username: string;
+export interface AuthData {
+  email: string;
   password: string;
 };
 
-export type loginResponse = {
+export interface AuthResponse {
   access_token: string;
   token_type: string;
 };
