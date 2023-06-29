@@ -7,6 +7,7 @@ import { HOME_ROUTE } from "@/utils/config/urls";
 import { _login } from "@/utils/endpoints/controller/auth.controller";
 import { AuthResponse } from "@/utils/endpoints/types/auth.type";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -60,8 +61,13 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<InputFields> = async (data: InputFields) => {
     setLoading(true);
+
+    const params = new URLSearchParams();
+    params.append("username", data.email);
+    params.append("password", data.password);
+
     const res: AuthResponse | undefined = await _login(
-      data,
+      params,
       alert,
       setAlert,
       setLoading
@@ -168,7 +174,7 @@ const Login = () => {
           )}
         </section>
 
-        {"!fetching" ? (
+        {!loading ? (
           <button type="submit" className={`button w-full py-2 text-lg`}>
             Log in
           </button>
@@ -181,7 +187,7 @@ const Login = () => {
         )}
 
         <Link href={`${HOME_ROUTE}?${AUTH}=${Auth_Tab.SIGNUP}`}>
-          <span className="link font-semibold text-primary-6 underline underline-offset-4">
+          <span className="link w-fit font-semibold text-primary-6 underline underline-offset-4">
             Sign up
           </span>
         </Link>

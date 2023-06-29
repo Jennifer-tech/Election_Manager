@@ -1,29 +1,23 @@
 "use client";
 
+import { useIsAuth } from "@/lib/hooks/useIsAuth";
+import useGlobalStore from "@/lib/store/global-store";
 import { HOME_ROUTE } from "@/utils/config/urls";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { RxHamburgerMenu } from "react-icons/rx";
+import React, { useState } from "react";
 import { MdHowToVote } from "react-icons/md";
+import { RxHamburgerMenu } from "react-icons/rx";
 import Home from "./Home";
+import MobileSlideNav from "./MobileSlideNav";
 import Statistics from "./Statistics";
 import Vote from "./Vote";
-import MobileSlideNav from "./MobileSlideNav";
-import useGlobalStore from "@/lib/store/global-store";
-import { useIsAuth } from "@/lib/hooks/useIsAuth";
 
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const store = useGlobalStore((state) => state.store);
   const clearStore = useGlobalStore((state) => state.clearStore);
 
   useIsAuth()
-
-  // console.log(store.isAuthenticated);
-  // useEffect(() => {
-  //   setIsAuthenticated(!!store?.isAuthenticated);
-  // }, []);
 
   return (
     <>

@@ -2,15 +2,12 @@
 
 import { HOME_ROUTE } from "@/utils/config/urls";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { useReadLocalStorage } from 'usehooks-ts'
-import useGlobalStore, { GLOBAL_STORE, State } from "../store/global-store";
+import { useLayoutEffect, useMemo } from "react";
+import useGlobalStore from "../store/global-store";
 
-// export const protectedPath = ["/account-settings", "/conflict"];
+// export const protectedPath = [];
 
 export const useIsAuth = () => {
-  // const store = useReadLocalStorage<State>(GLOBAL_STORE)?.store
-  // console.log(store)
   const store = useGlobalStore((state) => state.store);
   const router = useRouter();
 
@@ -18,7 +15,7 @@ export const useIsAuth = () => {
     return !!store?.isAuthenticated;
   }, [store]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const url = new URL(window.location.href);
     const currentUrlPath = url.pathname;
 

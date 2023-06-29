@@ -7,20 +7,14 @@ import ElectorateData from "@/components/Modal/ElectorateData";
 import { BiUpload } from "react-icons/bi";
 import { MdRemoveRedEye } from "react-icons/md";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useGlobalStore from "@/lib/store/global-store";
 import Authentication from "@/components/Authentication";
 
 export default function Home() {
   const [closeElectionForm, setCloseElectionForm] = useState(true);
   const [closeElectorateData, setCloseElectorateData] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const store = useGlobalStore((state) => state.store);
-
-  // console.log(store.isAuthenticated);
-  // useEffect(() => {
-  //   setIsAuthenticated(!!store?.isAuthenticated);
-  // }, []);
 
   const handleClose = () => {
     setCloseElectionForm(true);
@@ -66,8 +60,8 @@ export default function Home() {
         <Authentication />
       )}
 
-      <ElectionForm isClose={closeElectionForm} onClose={handleClose} />
-      <ElectorateData isClose={closeElectorateData} onClose={handleClose} />
+      <ElectionForm isOpen={closeElectionForm} onClose={handleClose} />
+      <ElectorateData isOpen={closeElectorateData} onClose={handleClose} />
     </>
   );
 }

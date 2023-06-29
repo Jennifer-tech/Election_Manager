@@ -178,7 +178,7 @@ const SignUp = () => {
         )}
 
         <Link href={`${HOME_ROUTE}?${AUTH}=${Auth_Tab.LOGIN}`}>
-          <span className="link font-semibold text-primary-6 underline underline-offset-4">
+          <span className="link w-fit font-semibold text-primary-6 underline underline-offset-4">
             Log in
           </span>
         </Link>

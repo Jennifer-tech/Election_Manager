@@ -4,7 +4,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { RiAddLine } from "react-icons/ri";
 
 type Props = {
-  isClose: boolean;
+  isOpen: boolean;
   onClose: () => void;
 };
 // interface IFormInput {
@@ -13,7 +13,7 @@ type Props = {
 //   addCategories: string
 // }
 
-const ElectorateData = ({ isClose, onClose }: Props) => {
+const ElectorateData = ({ isOpen, onClose }: Props) => {
   useEffect(() => {
     document.addEventListener(
       "keydown",
@@ -31,7 +31,7 @@ const ElectorateData = ({ isClose, onClose }: Props) => {
       </div> */}
       <div
         className={`z-50 flex ${
-          isClose ? " md:flex -translate-y-full" : "md:flex"
+          isOpen ? " md:flex -translate-y-full" : "md:flex"
         } justify-center items-center overflow-auto fixed top-0 bottom-0 transition-ease bg-black/60 w-full`}
       >
         <section className="relative flex flex-col h-fit w-[80%] sm:w-[70%] md:w-[45%] lg:w-[40%] xl:w-[30%] overflow-hidden space-y-3 py-5 px-4 rounded-lg bg-white">

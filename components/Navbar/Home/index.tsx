@@ -5,7 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
 
-const Home = () => {
+type Props = {
+  callback?: () => void;
+};
+
+const Home = ({ callback }: Props) => {
   const path = usePathname();
 
   const isActivePath = useMemo(() => {
@@ -14,9 +18,13 @@ const Home = () => {
 
   return (
     <Link href={HOME_ROUTE}>
-      <p className={`text-blue-950 nav-link transition-ease ${
-        isActivePath && 'underline underline-offset-3'
-      }`}>Home</p>
+      <p onClick={() => callback && callback()}
+        className={`text-blue-950 nav-link transition-ease ${
+          isActivePath && "underline underline-offset-3"
+        }`}
+      >
+        Home
+      </p>
     </Link>
   );
 };
