@@ -2,14 +2,12 @@ export type CreateElectionsData = {};
 
 export type CreateElectionsResponse = {};
 
-export type GetElectionsResponse = [
-  {
-    title: string;
-    is_active: boolean;
-    is_finished: boolean;
-    id: number;
-  }
-];
+export type GetElectionsResponse = {
+  title: string;
+  is_active: boolean;
+  is_finished: boolean;
+  id: number;
+}[];
 
 export type GetAnElectionResponse = {};
 
@@ -55,5 +53,3 @@ export type ElectionParticipantsResponse = {
 };
 
 export type ElectionResultsResponse = ElectionParticipantsResponse;
-
-

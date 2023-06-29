@@ -77,12 +77,17 @@ const Login = () => {
     }
 
     setLoading(false);
+    setTimeout(() => {
+      setAlert({ ...alert, active: false });
+    }, 5000);
   };
 
   return (
     <div className="flex flex-col space-y-4">
       <section className="w-fit flex flex-col mt-4 items-center space-y-1 mx-auto">
-        <p className="text-2xl font-semibold text-center">Welcome to Election Manager!</p>
+        <p className="text-2xl font-semibold text-center">
+          Welcome to Election Manager!
+        </p>
         <p className="text-lg font-medium text-center">Sign in to continue</p>
       </section>
 

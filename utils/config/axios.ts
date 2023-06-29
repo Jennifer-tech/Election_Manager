@@ -1,4 +1,6 @@
+import { GLOBAL_STORE, State } from "@/lib/store/global-store";
 import axios from "axios";
+import { useReadLocalStorage } from "usehooks-ts";
 
 const baseURL = "https://election-api-chimaobi-cc3efd7d6eef.herokuapp.com";
 
@@ -13,8 +15,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    if ("token") {
-      config.headers["Authorization"] = `Bearer ${"token"}'`;
+    const store = useReadLocalStorage<State>(GLOBAL_STORE)?.store
+    if (store && store.access_token) {
+      config.headers["Authorization"] = `Bearer ${store.access_token}'`;
     }
     return config;
   },
