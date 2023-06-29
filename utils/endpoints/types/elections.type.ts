@@ -1,6 +1,13 @@
-export type CreateElectionsData = {};
+export type CreateElectionData = {
+  title: string;
+};
 
-export type CreateElectionsResponse = {};
+export type CreateElectionResponse = {
+  title: string;
+  is_active: boolean;
+  is_finished: boolean;
+  id: number;
+};
 
 export type GetElectionsResponse = {
   title: string;

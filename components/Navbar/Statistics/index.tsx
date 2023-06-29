@@ -3,7 +3,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
 
-const Statistics = () => {
+type Props = {
+  callback?: () => void;
+};
+
+const Statistics = ({ callback }: Props) => {
   const path = usePathname();
 
   const isActivePath = useMemo(() => {
@@ -13,6 +17,7 @@ const Statistics = () => {
   return (
     <Link href={STATISTICS_ROUTE}>
       <p
+        onClick={() => callback && callback()}
         className={`text-blue-950 nav-link transition-ease ${
           isActivePath && "underline underline-offset-3"
         }`}

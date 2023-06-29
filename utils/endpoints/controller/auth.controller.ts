@@ -1,9 +1,9 @@
 import { Alert } from "@/components/Alert";
+import { URLSearchParams } from "url";
 import { Auth } from "../api/auth.api";
-import { AuthData } from "../types/auth.type";
 
 export const _login = async (
-  data: AuthData,
+  data: URLSearchParams,
   alert: Alert,
   callback?: (alert: Alert) => void,
   setLoading?: (x: boolean) => void
@@ -12,8 +12,10 @@ export const _login = async (
     if (!window.navigator.onLine) {
       throw new Error("Network Error");
     }
-
+    
+    console.log('1')
     const res = await Auth.login(data);
+    console.log('res', res)
 
     setLoading && setLoading(false);
 
@@ -40,6 +42,7 @@ export const _login = async (
       return;
     }
   } catch (error: any) {
+    console.log(error)
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {

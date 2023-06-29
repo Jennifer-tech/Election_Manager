@@ -28,14 +28,13 @@ const Elections = () => {
   };
 
   const fetchElections = useCallback(async () => {
-    const elections = await _getElections(alert, setAlert);
-    setElections(elections ?? []);
+    const _elections = await _getElections(alert, setAlert);
+    setElections(_elections ?? []);
 
     setTimeout(() => {
       setAlert({ ...alert, active: false });
     }, 5000);
   }, []);
-  console.log("elections", elections);
 
   useEffect(() => {
     fetchElections();
@@ -48,7 +47,7 @@ const Elections = () => {
           key={i}
           className="border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer"
         >
-          <div className="hover:link w-full">
+          <div className="w-full">
             <Link href={ELECTION_POSITION}>{election.title}</Link>
           </div>
 
@@ -56,15 +55,15 @@ const Elections = () => {
         </span>
       ))}
 
-      <span className="border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer flex items-center justify-between">
-        <Link href={ELECTION_POSITION}>
-          <div className="w-[80%] truncate border">SEES Election</div>
-        </Link>
+      {/* <span className="border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer flex items-center justify-between">
+        <div className="w-full">
+          <Link href={ELECTION_POSITION}>SEES Election</Link>
+        </div>
 
         <span className="p-1 hover:bg-slate-300 rounded-md">
           <BsThreeDots />
         </span>
-      </span>
+      </span> */}
 
       <span className="z-30 fixed top-3 right-3">
         <Alert alert={alert} />

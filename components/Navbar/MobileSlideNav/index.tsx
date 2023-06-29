@@ -1,19 +1,19 @@
 // import { useRouter } from 'next/router';
-import { usePathname } from 'next/navigation';
-import React, { useEffect } from 'react'
-import { MdOutlineClose } from 'react-icons/md';
-import Home from '../Home';
-import Statistics from '../Statistics';
-import Vote from '../Vote';
+import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
+import { MdOutlineClose } from "react-icons/md";
+import Home from "../Home";
+import Statistics from "../Statistics";
+import Vote from "../Vote";
 
 type Props = {
   toggle: boolean;
   setToggle: (x: boolean) => void;
-}
-const MobileSlideNav = ({ toggle, setToggle}: Props) => {
+};
+
+const MobileSlideNav = ({ toggle, setToggle }: Props) => {
   const path = usePathname();
 
-  
   useEffect(() => {
     document.addEventListener(
       "keydown",
@@ -31,18 +31,20 @@ const MobileSlideNav = ({ toggle, setToggle}: Props) => {
         toggle ? "right-0" : "-translate-x-full"
       }`}
     >
-      
       <div className="z-20 w-full flex flex-col space-y-10">
-        <MdOutlineClose onClick={() => setToggle(false)} className="w-10 h-10 fill-blue-950" />
+        <MdOutlineClose
+          onClick={() => setToggle(false)}
+          className="w-10 h-10 fill-blue-950"
+        />
 
         <div className=" flex flex-col space-y-3 text-lg font-medium">
-          <Home />
-          <Vote />
-          <Statistics />
+          <Home callback={() => setToggle(false)} />
+          <Vote callback={() => setToggle(false)} />
+          <Statistics callback={() => setToggle(false)} />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default MobileSlideNav;
