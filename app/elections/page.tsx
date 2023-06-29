@@ -1,11 +1,11 @@
-import React from "react";
-import { ONGOING_ELECTION } from "@/utils/config/urls";
+import { ELECTION_POSITION } from "@/utils/config/urls";
 import Link from "next/link";
+import React from "react";
 
-const Statistics = () => {
+const Elections = () => {
   return (
     <div className="flex flex-col mt-10">
-      <Link href={ONGOING_ELECTION}>
+      <Link href={ELECTION_POSITION}>
         <div className="border border-gray-300 mx-5 mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer">
           SEES Election 2023{" "}
         </div>
@@ -23,4 +23,4 @@ const Statistics = () => {
   );
 };
 
-export default Statistics;
+export default Elections;

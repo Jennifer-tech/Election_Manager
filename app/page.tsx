@@ -1,39 +1,73 @@
-// import Image from "next/image";
-import { HOME_ROUTE } from "@/utils/config/urls";
+"use client";
+
+import { STATISTICS_ROUTE } from "@/utils/config/urls";
 import { RiAddLine } from "react-icons/ri";
+import ElectionForm from "@/components/Modal/ElectionForm";
+import ElectorateData from "@/components/Modal/ElectorateData";
 import { BiUpload } from "react-icons/bi";
 import { MdRemoveRedEye } from "react-icons/md";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import useGlobalStore from "@/lib/store/global-store";
+import Authentication from "@/components/Authentication";
 
 export default function Home() {
+  const [closeElectionForm, setCloseElectionForm] = useState(true);
+  const [closeElectorateData, setCloseElectorateData] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const store = useGlobalStore((state) => state.store);
+
+  // console.log(store.isAuthenticated);
+  // useEffect(() => {
+  //   setIsAuthenticated(!!store?.isAuthenticated);
+  // }, []);
+
+  const handleClose = () => {
+    setCloseElectionForm(true);
+    setCloseElectorateData(true);
+  };
+
   return (
     <>
-      <div className="flex items-center py-3 px-36 md:px-28">
-        <h1 className="text-3xl text-blue-950 font-semibold">
-          Welcome Chimaobi,
-        </h1>
-      </div>
+      {store?.isAuthenticated ? (
+        <div className="p-10">
+          <h1 className="text-xl md:text-3xl text-blue-950 font-semibold px-10">
+            Welcome,... 🤗
+          </h1>
+          <p className="italic text-blue-950 px-10">
+            Never doubt that a small group of thoughtful, concerned citizens can
+            change the world.
+          </p>
 
-      <div className="flex flex-col items-center w-full my-5 sm:flex space-x-3 md:space-x-12 md:flex md:flex-row md:w-full md:justify-center lg:space-x-10 text-shadow-200 text-sm lg:text-base font-medium">
-        <Link href={HOME_ROUTE}>
-          <div className="flex flex-col items-center justify-center relative h-60 w-80 my-5 md:w-80 md:h-80 border shadow-md hover:shadow-lg dark:border-b-white-900 rounded-lg">
-            <RiAddLine className="w-20 h-20 fill-blue-950" />
-            <p className="text-lg text-blue-950">Create Election Poll</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-medium mx-auto w-[95%]">
+            <span onClick={() => setCloseElectionForm(!closeElectionForm)}>
+              <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
+                <RiAddLine className="w-20 h-20 fill-blue-950" />
+                <p className="text-lg text-blue-950">Create Election Poll</p>
+              </div>
+            </span>
+
+            <span onClick={() => setCloseElectorateData(!closeElectorateData)}>
+              <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
+                <BiUpload className="w-20 h-20 fill-blue-950" />
+                <p className="text-lg text-blue-950">Upload Electorate data</p>
+              </div>
+            </span>
+
+            <Link href={STATISTICS_ROUTE}>
+              <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
+                <MdRemoveRedEye className="w-20 h-20 fill-blue-950" />
+                <p className="text-lg text-blue-950">View Ongoing Poll</p>
+              </div>
+            </Link>
           </div>
-        </Link>
-        <Link href={HOME_ROUTE}>
-          <div className="flex flex-col items-center justify-center relative h-60 w-80 my-5 md:w-80 md:h-80 border shadow-md hover:shadow-lg dark:border-b-white-900 rounded-lg">
-            <BiUpload className="w-20 h-20 fill-blue-950" />
-            <p className="text-lg text-blue-950">Upload Electorate data</p>
-          </div>
-        </Link>
-        <Link href={HOME_ROUTE}>
-          <div className="flex flex-col items-center justify-center relative h-60 w-80 my-5 md:w-80 md:h-80 border shadow-md hover:shadow-lg dark:border-b-white-900 rounded-lg">
-            <MdRemoveRedEye className="w-20 h-20 fill-blue-950" />
-            <p className="text-lg text-blue-950">View Ongoing Poll</p>
-          </div>
-        </Link>
-      </div>
+        </div>
+      ) : (
+        <Authentication />
+      )}
+
+      <ElectionForm isClose={closeElectionForm} onClose={handleClose} />
+      <ElectorateData isClose={closeElectorateData} onClose={handleClose} />
     </>
   );
 }

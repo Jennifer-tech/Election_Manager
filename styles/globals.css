@@ -25,3 +25,36 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+
+.transition-ease {
+  @apply transition-all ease-in-out duration-300;
+}
+
+.button {
+  @apply hover:bg-blue-950/70 hover:cursor-pointer transition-ease rounded-lg bg-blue-950 shadow-blue-950/30 shadow-md text-white disabled:bg-gray-600 disabled:shadow-sm disabled:cursor-not-allowed;
+}
+
+.link {
+  @apply hover:text-blue-950/70 hover:cursor-pointer transition-ease;
+}
+
+/* Dot loader */
+.dots {
+  width: 13.4px;
+  height: 13.4px;
+  background: #673de6;
+  color: #673de6;
+  border-radius: 50%;
+  box-shadow: 13.4px 0,-26.9px 0;
+  animation: dots-h5boszmd 0.5s infinite linear alternate;
+}
+
+@keyframes dots-h5boszmd {
+  50% {
+     box-shadow: 13.4px 0,-13.4px 0;
+  }
+
+  100% {
+     box-shadow: 26.9px 0,-13.4px 0;
+  }
+}
