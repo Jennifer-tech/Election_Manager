@@ -8,42 +8,42 @@ import {
   subscribeWithSelector,
 } from "zustand/middleware";
 
-interface State {
+export interface State {
   store: {
     isAuthenticated?: boolean;
   } & Partial<AuthResponse>
 }
 
-type Actions = {
+export type Actions = {
   setStore: (state: State) => void;
   clearStore: () => void;
 };
 
-const GLOBAL_STORE = "election-manager-global-store";
+export const GLOBAL_STORE = "election-manager-global-store";
 
 const useGlobalStore = create<
   State & Actions,
   [
     ["zustand/subscribeWithSelector", State & Actions],
-    ["zustand/devtools", State & Actions]
-    // ["zustand/persist", Store & Actions]
+    ["zustand/devtools", State & Actions],
+    ["zustand/persist", State & Actions]
   ]
 >(
   subscribeWithSelector(
     devtools(
+      persist(
       (set, get) => ({
         store: {
           isAuthenticated: false,
         },
         setStore: (state) => set((prev) => ({ store: state.store}), false, "setStore"),
         clearStore: () => set({ store: {} }, false, "clearStore"),
-      })
-      //   persist(
-      //     {
-      //       name: GLOBAL_STORE,
-      //       storage: createJSONStorage(() => localStorage),
-      //     }
-      //   )
+      }),
+          {
+            name: GLOBAL_STORE,
+            storage: createJSONStorage(() => localStorage),
+          }
+        )
     )
   )
 );

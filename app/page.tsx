@@ -31,10 +31,10 @@ export default function Home() {
     <>
       {store?.isAuthenticated ? (
         <div className="p-10">
-          <h1 className="text-xl md:text-3xl text-blue-950 font-semibold px-10">
+          <h1 className="text-xl md:text-3xl text-blue-950 font-semibold px-10 text-center md:text-start">
             Welcome,... 🤗
           </h1>
-          <p className="italic text-blue-950 px-10">
+          <p className="italic text-blue-950 px-10 text-center md:text-start">
             Never doubt that a small group of thoughtful, concerned citizens can
             change the world.
           </p>

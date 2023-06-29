@@ -60,7 +60,7 @@ const Navbar = () => {
           ) : null}
         </section>
 
-        <button onClick={() => clearStore()} className="md:hidden button px-2 py-1">Log out</button>
+        {store?.isAuthenticated && <button onClick={() => clearStore()} className="md:hidden button px-2 py-1">Log out</button>}
       </div>
       <MobileSlideNav toggle={toggleNav} setToggle={setToggleNav} />
     </>

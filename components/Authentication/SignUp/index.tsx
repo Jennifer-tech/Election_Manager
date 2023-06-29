@@ -66,8 +66,6 @@ const SignUp = () => {
       setAlert,
       setLoading
     );
-
-    console.log(res)
     
     if (res) {
       setStore({
@@ -79,6 +77,9 @@ const SignUp = () => {
     }
 
     setLoading(false);
+    setTimeout(() => {
+      setAlert({ ...alert, active: false });
+    }, 5000);
   };
 
   return (
