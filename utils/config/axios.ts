@@ -31,7 +31,7 @@ axiosInstance.interceptors.request.use(
     // }
     
     if (store && store?.access_token) {
-      config.headers["Authorization"] = `Bearer ${store.access_token}'`;
+      config.headers["Authorization"] = `Bearer ${store.access_token}`;
     }
 
     return config;
