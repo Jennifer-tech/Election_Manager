@@ -45,7 +45,7 @@ const Elections = () => {
       {elections.map((election, i) => (
         <span
           key={i}
-          className="border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer"
+          className="border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer flex items-center justify-between"
         >
           <div className="w-full">
             <Link href={ELECTION_POSITION}>{election.title}</Link>
@@ -54,17 +54,7 @@ const Elections = () => {
           <BsThreeDots onClick={() => setToggle(!toggle)} />
         </span>
       ))}
-
-      {/* <span className="border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer flex items-center justify-between">
-        <div className="w-full">
-          <Link href={ELECTION_POSITION}>SEES Election</Link>
-        </div>
-
-        <span className="p-1 hover:bg-slate-300 rounded-md">
-          <BsThreeDots />
-        </span>
-      </span> */}
-
+      
       <span className="z-30 fixed top-3 right-3">
         <Alert alert={alert} />
       </span>
