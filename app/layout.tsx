@@ -1,6 +1,5 @@
 // import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { useIsAuth } from "@/lib/hooks/useIsAuth";
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 
@@ -15,7 +14,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {  
+}) { 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
