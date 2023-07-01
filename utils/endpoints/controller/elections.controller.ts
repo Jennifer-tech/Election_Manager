@@ -145,3 +145,66 @@ export const _createElection = async (
     return;
   }
 };
+
+export const _deleteElection = async (
+  data: string | number,
+  alert: Alert,
+  callback?: (alert: Alert) => void,
+  setLoading?: (x: boolean) => void
+): Promise<boolean | undefined> => {
+  try {
+    if (!window.navigator.onLine) {
+      throw new Error("Network Error");
+    }
+
+    const res = await Elections.deleteElection(data);
+    console.log("res", res);
+
+    setLoading && setLoading(false);
+
+    callback &&
+      callback({
+        ...alert,
+        title: "Election deleted successfully...",
+        variant: "success",
+        onClose: () => callback && callback(alert),
+        active: true,
+      });
+
+    return true;
+  } catch (error: any) {
+    console.log(error);
+    setLoading && setLoading(false);
+
+    if (error?.message === "Network Error") {
+      callback &&
+        callback({
+          ...alert,
+          title: "You are offline",
+          onClose: () => callback && callback(alert),
+          variant: "error",
+          active: true,
+        });
+    } else if (error?.response?.data?.message) {
+      callback &&
+        callback({
+          ...alert,
+          title: error?.response?.data?.message,
+          onClose: () => callback && callback(alert),
+          variant: "error",
+          active: true,
+        });
+    } else {
+      callback &&
+        callback({
+          ...alert,
+          title: "Something went wrong",
+          onClose: () => callback && callback(alert),
+          variant: "error",
+          active: true,
+        });
+    }
+
+    return;
+  }
+};

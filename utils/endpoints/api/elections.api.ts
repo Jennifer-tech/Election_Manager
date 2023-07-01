@@ -14,19 +14,19 @@ export class Elections {
     return await axiosInstance.get(`/elections/${id}`);
   }
 
-  static async updateElection(id: number, data: UpdateAnElectionData) {
+  static async updateElection(id: string | number, data: UpdateAnElectionData) {
     return await axiosInstance.put(`/elections/${id}`, data);
   }
 
-  static async deleteElection(id: number) {
+  static async deleteElection(id: string | number) {
     return await axiosInstance.delete(`/elections/${id}`);
   }
 
-  static async getElectionParticipants(id: number) {
+  static async getElectionParticipants(id: string | number) {
     return await axiosInstance.get(`/elections/${id}/participants`);
   }
 
-  static async getElectionResults(id: number) {
+  static async getElectionResults(id: string | number) {
     return await axiosInstance.get(`/elections/${id}/results`);
   }
 }

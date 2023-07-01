@@ -38,6 +38,14 @@ body {
   @apply hover:text-blue-950/70 hover:cursor-pointer transition-ease;
 }
 
+.delete-button {
+  @apply hover:bg-red-500/70 hover:cursor-pointer transition-ease rounded-lg bg-red-600 shadow-md text-white disabled:bg-gray-400 disabled:shadow-sm disabled:cursor-not-allowed;
+}
+
+.button-outline {
+  @apply hover:bg-gray-300/30 hover:cursor-pointer border border-gray-500/60 transition-ease rounded-lg shadow-md disabled:bg-gray-400 disabled:shadow-sm disabled:cursor-not-allowed;
+}
+
 /* Dot loader */
 .dots {
   width: 13.4px;
