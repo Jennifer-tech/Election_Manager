@@ -67,13 +67,6 @@ const AddVotersModal = ({ close, isOpen, election_id }: Props) => {
     setAlert({ ...alert, active: false });
   };
 
-  const handleVotersUpload = async () => {
-    setLoading(true);
-    // const res = await _uploadVoters;
-
-    // if (res) {}
-  };
-
   const onSubmit: SubmitHandler<InputFields> = async (data: InputFields) => {
     if (filesContent.length === 0) return;
 

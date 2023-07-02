@@ -1,45 +1,23 @@
 import { Alert } from "@/components/Alert";
-import { Voters } from "../api/voters.api";
-import { UploadVotersResponse } from "../types/voters.type";
+import { Admin } from "../api/admin.api";
+import { CreateAdminData, CreateAdminResponse } from "../types/admin.type";
 
-export const _uploadVoters = async (
-  data: FormData,
+export const _createAdmin = async (
+  data: CreateAdminData,
   alert: Alert,
   callback?: (alert: Alert) => void,
   setLoading?: (x: boolean) => void
-): Promise<UploadVotersResponse | undefined> => {
+): Promise<boolean | undefined> => {
   try {
     if (!window.navigator.onLine) {
       throw new Error("Network Error");
     }
 
-    const res = await Voters.upload(data);
+    const res = await Admin.create(data);
 
     setLoading && setLoading(false);
 
-    if (res.data) {
-      callback &&
-        callback({
-          ...alert,
-          title: "voters uploaded successfully...",
-          variant: "success",
-          onClose: () => callback && callback(alert),
-          active: true,
-        });
-
-      return res.data;
-    } else {
-      callback &&
-        callback({
-          ...alert,
-          title: "Could not upload voters",
-          variant: "error",
-          onClose: () => callback && callback(alert),
-          active: true,
-        });
-
-      return;
-    }
+    return true;
   } catch (error: any) {
     setLoading && setLoading(false);
 

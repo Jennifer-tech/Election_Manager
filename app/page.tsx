@@ -1,24 +1,23 @@
 "use client";
 
-import { STATISTICS_ROUTE } from "@/utils/config/urls";
-import { RiAddLine } from "react-icons/ri";
+import Authentication from "@/components/Authentication";
+import CreateAdmin from "@/components/Modal/CreateAdmin";
 import ElectionForm from "@/components/Modal/ElectionForm";
-import ElectorateData from "@/components/Modal/ElectorateData";
-import { BiUpload } from "react-icons/bi";
-import { MdRemoveRedEye } from "react-icons/md";
+import useGlobalStore from "@/lib/store/global-store";
+import { ADMIN_ROUTE, STATISTICS_ROUTE } from "@/utils/config/urls";
 import Link from "next/link";
 import { useState } from "react";
-import useGlobalStore from "@/lib/store/global-store";
-import Authentication from "@/components/Authentication";
+import { MdRemoveRedEye } from "react-icons/md";
+import { RiAddLine } from "react-icons/ri";
 
 export default function Home() {
-  const [closeElectionForm, setCloseElectionForm] = useState(true);
-  const [closeElectorateData, setCloseElectorateData] = useState(true);
+  const [closeElectionForm, setCloseElectionForm] = useState(false);
+  const [adminModal, setAdminModal] = useState(false);
   const store = useGlobalStore((state) => state.store);
 
   const handleClose = () => {
-    setCloseElectionForm(true);
-    setCloseElectorateData(true);
+    setCloseElectionForm(false);
+    setAdminModal(false);
   };
 
   return (
@@ -41,10 +40,10 @@ export default function Home() {
               </div>
             </span>
 
-            <span onClick={() => setCloseElectorateData(!closeElectorateData)}>
+            <span onClick={() => setAdminModal(!adminModal)}>
               <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
-                <BiUpload className="w-20 h-20 fill-blue-950" />
-                <p className="text-lg text-blue-950">Upload Electorate data</p>
+                <RiAddLine className="w-20 h-20 fill-blue-950" />
+                <p className="text-lg text-blue-950">Create Admin</p>
               </div>
             </span>
 
@@ -54,14 +53,21 @@ export default function Home() {
                 <p className="text-lg text-blue-950">View Ongoing Poll</p>
               </div>
             </Link>
+
+            <Link href={ADMIN_ROUTE}>
+              <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
+                <MdRemoveRedEye className="w-20 h-20 fill-blue-950" />
+                <p className="text-lg text-blue-950">View Admins</p>
+              </div>
+            </Link>
           </div>
         </div>
       ) : (
         <Authentication />
       )}
 
-      <ElectionForm isOpen={closeElectionForm} onClose={handleClose} />
-      <ElectorateData isOpen={closeElectorateData} onClose={handleClose} />
+      <ElectionForm isOpen={closeElectionForm} close={handleClose} />
+      <CreateAdmin  isOpen={adminModal} close={handleClose} />
     </>
   );
 }

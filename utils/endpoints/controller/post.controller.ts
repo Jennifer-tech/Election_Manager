@@ -41,7 +41,6 @@ export const _createPost = async (
       return;
     }
   } catch (error: any) {
-    console.log(error);
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {
@@ -103,7 +102,6 @@ export const _deletePost = async (
 
     return true;
   } catch (error: any) {
-    console.log(error);
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {
