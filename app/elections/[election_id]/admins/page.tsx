@@ -3,19 +3,28 @@
 import Alert, { type Alert as AlertType } from "@/components/Alert";
 import AddParticipantModal from "@/components/Modal/AddParticipantModal";
 import ThreeDotsDroplist from "@/components/ThreeDotsDroplist";
-import { _getElectionCategories } from "@/utils/endpoints/controller/elections.controller";
-import { ElectionCategoriesResponse } from "@/utils/endpoints/types/elections.type";
+import { _deleteAdmin } from "@/utils/endpoints/controller/admin.controller";
+import {
+  _getElectionAdmin,
+  _getElectionCategories,
+} from "@/utils/endpoints/controller/elections.controller";
+import { GetAdminsResponse } from "@/utils/endpoints/types/admin.type";
+import {
+  ElectionAdminResponse,
+  ElectionCategoriesResponse,
+} from "@/utils/endpoints/types/elections.type";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 
-const Admin = () => {
+const Admins = () => {
   const params = useParams();
-  const [electionsCategories, setElectionsCategories] =
-    useState<ElectionCategoriesResponse>([]);
+  const [admins, setAdmins] = useState<ElectionAdminResponse>([]);
   const [addParticipant, setAddParticipant] = useState(false);
-  const [selected, setSelected] = useState<number | undefined>(undefined);
+  const [selected, setSelected] = useState<GetAdminsResponse[0] | undefined>(
+    undefined
+  );
 
   const [alert, setAlert] = useState<AlertType>({
     title: "",
@@ -32,44 +41,36 @@ const Admin = () => {
     () => [
       {
         id: v4(),
-        title: "Add participants",
+        title: <p className="text-red-600">Delete admin</p>,
         callback: (id: string | number): void => {
-          setAddParticipant(true), setSelected(id as number);
-        },
-      },
-      {
-        id: v4(),
-        title: "View ",
-        callback: (id: string | number): void => {
-          // router.push(`/elections/${id}/categories`);
-        },
-      },
-      {
-        id: v4(),
-        title: "Create post",
-        callback: (id: string | number): void => {
-          // setSelected(id as number), setCreatePostToggle(true);
-        },
-      },
-      {
-        id: v4(),
-        title: <p className="text-red-600">Delete election</p>,
-        callback: (id: string | number): void => {
-          // setSelected(id as number);
-          // setDeleteToggle(true);
+          handleAdminDelete(id);
         },
       },
     ],
     []
   );
 
-  const fetchElectionCategories = useCallback(async () => {
-    const _electionsCategories = await _getElectionCategories(
+  const handleAdminDelete = useCallback(async (id: string | number) => {
+    const res = await _deleteAdmin(id ?? "", alert, setAlert);
+
+    if (res) {
+      const filteredAdmins = admins.filter((admin) => admin.id !== id);
+      setAdmins(filteredAdmins);
+    }
+
+    setTimeout(() => {
+      setAlert({ ...alert, active: false });
+    }, 5000);
+  }, []);
+
+  const fetchElectionAdmins = useCallback(async () => {
+    const _admins = await _getElectionAdmin(
       params["election_id"] ?? "",
       alert,
       setAlert
     );
-    setElectionsCategories(_electionsCategories ?? []);
+
+    setAdmins(_admins ?? []);
 
     setTimeout(() => {
       setAlert({ ...alert, active: false });
@@ -77,37 +78,35 @@ const Admin = () => {
   }, []);
 
   useEffect(() => {
-    fetchElectionCategories();
+    fetchElectionAdmins();
   }, []);
 
   return (
     <div className="flex flex-col mt-10">
-      {electionsCategories.map((category, i) => (
+      {admins.map((admin, i) => (
         <span
           key={i}
           className="relative border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer flex items-center justify-between"
         >
           <div className="w-full">
-            <Link href={"ELECTION_CATEGORIES(category.id)"}>
-              {category.post}
-            </Link>
+            <Link href={"ELECTION_CATEGORIES(category.id)"}>{admin.email}</Link>
           </div>
 
           <ThreeDotsDroplist
             actionButtons={threeDotActionButton}
-            itemId={category.id}
+            itemId={admin.id}
           />
         </span>
       ))}
 
-      <AddParticipantModal
+      {/* <AddParticipantModal
         election_id={params["election_id"] as unknown as number}
         post_id={selected as number}
         isOpen={addParticipant}
         close={() => {
           setSelected(undefined), setAddParticipant(false);
         }}
-      />
+      /> */}
 
       <span className="z-30 fixed top-3 right-3">
         <Alert alert={alert} />
@@ -116,6 +115,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
-
-// page.tsx;
+export default Admins;

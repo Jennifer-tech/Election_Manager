@@ -4,7 +4,7 @@ import Authentication from "@/components/Authentication";
 import CreateAdmin from "@/components/Modal/CreateAdmin";
 import ElectionForm from "@/components/Modal/ElectionForm";
 import useGlobalStore from "@/lib/store/global-store";
-import { ADMIN_ROUTE, STATISTICS_ROUTE } from "@/utils/config/urls";
+import { STATISTICS_ROUTE } from "@/utils/config/urls";
 import Link from "next/link";
 import { useState } from "react";
 import { MdRemoveRedEye } from "react-icons/md";
@@ -51,13 +51,6 @@ export default function Home() {
               <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
                 <MdRemoveRedEye className="w-20 h-20 fill-blue-950" />
                 <p className="text-lg text-blue-950">View Ongoing Poll</p>
-              </div>
-            </Link>
-
-            <Link href={ADMIN_ROUTE}>
-              <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
-                <MdRemoveRedEye className="w-20 h-20 fill-blue-950" />
-                <p className="text-lg text-blue-950">View Admins</p>
               </div>
             </Link>
           </div>

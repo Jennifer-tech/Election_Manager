@@ -1,43 +1,32 @@
 import { Alert } from "@/components/Alert";
-import { Participants } from "../api/participants.api";
-import { AddParticipantsData, AddParticipantsResponse } from "../types/participants.type";
+import { CreateVotesData } from "../types/votes.type";
+import { Votes } from "../api/votes.api";
 
-export const _createParticipant = async (
-  data: AddParticipantsData,
+export const _createVote = async (
+  data: CreateVotesData,
   alert: Alert,
   callback?: (alert: Alert) => void,
   setLoading?: (x: boolean) => void
-): Promise<AddParticipantsResponse | undefined> => {
+): Promise<boolean | undefined> => {
   try {
     if (!window.navigator.onLine) {
       throw new Error("Network Error");
     }
-    const res = await Participants.create(data);
+
+    const res = await Votes.create(data);
+
     setLoading && setLoading(false);
 
-    if (res.data) {
-      callback &&
-        callback({
-          ...alert,
-          title: "Participant created successfully...",
-          variant: "success",
-          onClose: () => callback && callback(alert),
-          active: true,
-        });
+    callback &&
+      callback({
+        ...alert,
+        title: "Voted successfully...",
+        variant: "success",
+        onClose: () => callback && callback(alert),
+        active: true,
+      });
 
-      return res.data;
-    } else {
-      callback &&
-        callback({
-          ...alert,
-          title: "Could not create participant",
-          variant: "error",
-          onClose: () => callback && callback(alert),
-          active: true,
-        });
-
-      return;
-    }
+    return true;
   } catch (error: any) {
     setLoading && setLoading(false);
 

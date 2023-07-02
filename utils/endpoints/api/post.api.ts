@@ -7,6 +7,6 @@ export class Posts {
   }
 
   static async delete(id: string | number) {
-    return await axiosInstance.get(`/posts/${id}`);
+    return await axiosInstance.delete(`/posts/${id}`);
   }
 }

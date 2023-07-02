@@ -6,12 +6,11 @@ export class Admin {
     return axiosInstance.post("/admins", data);
   }
 
-  static getAdmins() {
+  static get() {
     return axiosInstance.get("/admins");
   }
 
-  static deleteAdmin(id: number) {
+  static delete(id: number) {
     return axiosInstance.delete(`/admins/${id}`);
   }
-
 }

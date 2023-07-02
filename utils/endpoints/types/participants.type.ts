@@ -1,10 +1,11 @@
-export type AddParticipants = {
+export type AddParticipantsData = {
   name: string;
   post_id: number;
   election_id: number;
+  photo_url: string;
 };
 
-export type CreateParticipantsResponse = {
+export type AddParticipantsResponse = {
   name: string;
   post_id: number;
   election_id: number;
@@ -28,5 +29,3 @@ export type UpdateParticipantsResponse = {
   photo_url: string;
 
 };
-
-export type DeleteAdmin = string;
