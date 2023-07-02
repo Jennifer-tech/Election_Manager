@@ -1,11 +1,9 @@
 export type GetAdmins = {};
 
-export type GetAdminsResponse = [
-  {
-    username: string;
-    id: number;
-  }
-];
+export type GetAdminsResponse = {
+  username: string;
+  id: number;
+}[];
 
 export type CreateAdminData = {
   email: string;

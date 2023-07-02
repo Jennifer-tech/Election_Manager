@@ -3,7 +3,8 @@ export const ELECTIONS = "/elections";
 export const ELECTION_CATEGORIES = (election_id: number) =>
   `/elections/${election_id}/categories`;
 export const STATISTICS_ROUTE = "/statistics";
-export const ADMIN_ROUTE = "/admins";
+export const ADMIN_ROUTE = (election_id: number) =>
+  `/elections/${election_id}/admins`
 
 
 

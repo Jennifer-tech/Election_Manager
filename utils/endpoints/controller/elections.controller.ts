@@ -3,6 +3,7 @@ import { Elections } from "../api/elections.api";
 import {
   CreateElectionData,
   CreateElectionResponse,
+  ElectionAdminResponse,
   ElectionCategoriesResponse,
   GetElectionsResponse,
 } from "../types/elections.type";
@@ -236,6 +237,72 @@ export const _getElectionCategories = async (
       return;
     }
   } catch (error: any) {
+    setLoading && setLoading(false);
+
+    if (error?.message === "Network Error") {
+      callback &&
+        callback({
+          ...alert,
+          title: "You are offline",
+          onClose: () => callback && callback(alert),
+          variant: "error",
+          active: true,
+        });
+    } else if (error?.response?.data?.message) {
+      callback &&
+        callback({
+          ...alert,
+          title: error?.response?.data?.message,
+          onClose: () => callback && callback(alert),
+          variant: "error",
+          active: true,
+        });
+    } else {
+      callback &&
+        callback({
+          ...alert,
+          title: "Something went wrong",
+          onClose: () => callback && callback(alert),
+          variant: "error",
+          active: true,
+        });
+    }
+
+    return;
+  }
+};
+
+export const _getElectionAdmin = async (
+  data: string | number,
+  alert: Alert,
+  callback?: (alert: Alert) => void,
+  setLoading?: (x: boolean) => void
+): Promise<ElectionAdminResponse | undefined> => {
+  try {
+    if (!window.navigator.onLine) {
+      throw new Error("Network Error");
+    }
+
+    const res = await Elections.getElectionAdmin(data);
+
+    setLoading && setLoading(false);
+
+    if (res.data) {
+      return res.data;
+    } else {
+      callback &&
+        callback({
+          ...alert,
+          title: "Could not fetch admins",
+          variant: "error",
+          onClose: () => callback && callback(alert),
+          active: true,
+        });
+
+      return;
+    }
+  } catch (error: any) {
+    console.log(error)
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {

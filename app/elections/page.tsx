@@ -45,8 +45,14 @@ const Elections = () => {
         id: v4(),
         title: "Add voters",
         callback: (id: string | number): void => {
-          setAddVotersToggle(true),
-          setSelected(id as number)
+          setAddVotersToggle(true), setSelected(id as number);
+        },
+      },
+      {
+        id: v4(),
+        title: "Create category",
+        callback: (id: string | number): void => {
+          setSelected(id as number), setCreatePostToggle(true);
         },
       },
       {
@@ -58,9 +64,9 @@ const Elections = () => {
       },
       {
         id: v4(),
-        title: "Create category",
+        title: "View admins",
         callback: (id: string | number): void => {
-          setSelected(id as number), setCreatePostToggle(true);
+          router.push(`/elections/${id}/admins`);
         },
       },
       {
@@ -90,7 +96,7 @@ const Elections = () => {
       setAlert({ ...alert, active: false });
     }, 5000);
   };
-  
+
   const fetchElections = useCallback(async () => {
     const _elections = await _getElections(alert, setAlert);
     setElections(_elections ?? []);

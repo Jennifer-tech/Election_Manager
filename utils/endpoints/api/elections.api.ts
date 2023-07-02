@@ -33,4 +33,8 @@ export class Elections {
   static async getElectionResults(id: string | number) {
     return await axiosInstance.get(`/elections/${id}/results`);
   }
+
+  static async getElectionAdmin(id: string | number) {
+    return await axiosInstance.get(`/elections/${id}/admins`);
+  }
 }

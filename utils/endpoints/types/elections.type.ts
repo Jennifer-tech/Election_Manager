@@ -66,3 +66,8 @@ export type ElectionParticipantsResponse = {
 };
 
 export type ElectionResultsResponse = ElectionParticipantsResponse;
+
+export type ElectionAdminResponse = {
+  email: string;
+  id: number;
+}[];
