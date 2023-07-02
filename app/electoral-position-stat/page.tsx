@@ -4,7 +4,7 @@ const ElectoralPositionStat = () => {
   return (
     <div className="w-full flex flex-col">
       <div className="flex justify-center mt-6">
-        <h1 className="text-xl font-semibold text-blue-950">
+        <h1 className="text-xl font-semibold mt-6 text-blue-950">
           PRESIDENTIAL STATISTICS
         </h1>
       </div>

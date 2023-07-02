@@ -1,8 +1,8 @@
 import axiosInstance from '../../config/axios'
-import { CreateVotes } from '../types/votes.type';
+import { CreateVotesData } from '../types/votes.type';
 
 export class Votes {
-  static create(data:CreateVotes) {
+  static create(data: CreateVotesData) {
     return axiosInstance.post("/votes", data);
   }
 }
