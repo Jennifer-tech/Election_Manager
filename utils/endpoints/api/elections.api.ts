@@ -22,6 +22,10 @@ export class Elections {
     return await axiosInstance.delete(`/elections/${id}`);
   }
 
+  static async getElectionCategories(id: string | number) {
+    return await axiosInstance.get(`/elections/${id}/posts`);
+  }
+
   static async getElectionParticipants(id: string | number) {
     return await axiosInstance.get(`/elections/${id}/participants`);
   }

@@ -33,6 +33,12 @@ export type UpdateAnElectionResponse = {
 
 export type DeleteAnElectionResponse = string;
 
+export type ElectionCategoriesResponse = {
+  post: string;
+  election_id: number;
+  id: number;
+}[];
+
 export type ElectionParticipantsResponse = {
   title: string;
   is_active: boolean;
