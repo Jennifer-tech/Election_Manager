@@ -53,8 +53,10 @@ const Admins = () => {
   const handleAdminDelete = useCallback(async (id: string | number) => {
     const res = await _deleteAdmin(id ?? "", alert, setAlert);
 
-    const filteredAdmins = admins.filter((admin) => admin.id !== id);
-    setAdmins(filteredAdmins);
+    if (res) {
+      const filteredAdmins = admins.filter((admin) => admin.id !== id);
+      setAdmins(filteredAdmins);
+    }
 
     setTimeout(() => {
       setAlert({ ...alert, active: false });

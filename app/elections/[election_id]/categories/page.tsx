@@ -4,6 +4,7 @@ import Alert, { type Alert as AlertType } from "@/components/Alert";
 import AddParticipantModal from "@/components/Modal/AddParticipantModal";
 import ThreeDotsDroplist from "@/components/ThreeDotsDroplist";
 import { _getElectionCategories } from "@/utils/endpoints/controller/elections.controller";
+import { _deletePost } from "@/utils/endpoints/controller/post.controller";
 import { ElectionCategoriesResponse } from "@/utils/endpoints/types/elections.type";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -32,6 +33,13 @@ const Categories = () => {
     () => [
       {
         id: v4(),
+        title: "View",
+        callback: (id: string | number): void => {
+          // router.push(`/elections/${id}/categories`);
+        },
+      },
+      {
+        id: v4(),
         title: "Add participants",
         callback: (id: string | number): void => {
           setAddParticipant(true), setSelected(id as number);
@@ -39,29 +47,29 @@ const Categories = () => {
       },
       {
         id: v4(),
-        title: "View ",
+        title: <p className="text-red-600">Delete Post</p>,
         callback: (id: string | number): void => {
-          // router.push(`/elections/${id}/categories`);
-        },
-      },
-      {
-        id: v4(),
-        title: "Create post",
-        callback: (id: string | number): void => {
-          // setSelected(id as number), setCreatePostToggle(true);
-        },
-      },
-      {
-        id: v4(),
-        title: <p className="text-red-600">Delete election</p>,
-        callback: (id: string | number): void => {
-          // setSelected(id as number);
-          // setDeleteToggle(true);
+          handleAdminDelete(id);
         },
       },
     ],
     []
   );
+
+  const handleAdminDelete = useCallback(async (id: string | number) => {
+    const res = await _deletePost(id ?? "", alert, setAlert);
+
+    if (res) {
+      const filteredcategories = electionsCategories.filter(
+        (admin) => admin.id !== id
+      );
+      setElectionsCategories(filteredcategories);
+    }
+
+    setTimeout(() => {
+      setAlert({ ...alert, active: false });
+    }, 5000);
+  }, []);
 
   const fetchElectionCategories = useCallback(async () => {
     const _electionsCategories = await _getElectionCategories(
