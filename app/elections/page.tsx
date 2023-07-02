@@ -90,8 +90,7 @@ const Elections = () => {
       setAlert({ ...alert, active: false });
     }, 5000);
   };
-  console.log("elections", elections);
-
+  
   const fetchElections = useCallback(async () => {
     const _elections = await _getElections(alert, setAlert);
     setElections(_elections ?? []);
@@ -147,14 +146,6 @@ const Elections = () => {
           setSelected(undefined), setAddVotersToggle(false);
         }}
       />
-{/* 
-      <AddParticipantModal
-        election_id={selected as number}
-        isOpen={createPostToggle}
-        close={() => {
-          setSelected(undefined), setCreatePostToggle(false);
-        }}
-      /> */}
 
       <span className="z-30 fixed top-3 right-3">
         <Alert alert={alert} />

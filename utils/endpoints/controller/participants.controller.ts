@@ -1,27 +1,25 @@
 import { Alert } from "@/components/Alert";
-import { Voters } from "../api/voters.api";
-import { UploadVotersResponse } from "../types/voters.type";
+import { Participants } from "../api/participants.api";
+import { CreateParticipantsResponse } from "../types/participants.type";
 
-export const _uploadVoters = async (
+export const _createParticipant = async (
   data: FormData,
   alert: Alert,
   callback?: (alert: Alert) => void,
   setLoading?: (x: boolean) => void
-): Promise<UploadVotersResponse | undefined> => {
+): Promise<CreateParticipantsResponse | undefined> => {
   try {
     if (!window.navigator.onLine) {
       throw new Error("Network Error");
     }
-
-    const res = await Voters.upload(data);
-
+    const res = await Participants.create(data);
     setLoading && setLoading(false);
 
     if (res.data) {
       callback &&
         callback({
           ...alert,
-          title: "voters uploaded successfully...",
+          title: "Participant created successfully...",
           variant: "success",
           onClose: () => callback && callback(alert),
           active: true,
@@ -32,7 +30,7 @@ export const _uploadVoters = async (
       callback &&
         callback({
           ...alert,
-          title: "Could not upload voters",
+          title: "Could not create participant",
           variant: "error",
           onClose: () => callback && callback(alert),
           active: true,
@@ -41,6 +39,7 @@ export const _uploadVoters = async (
       return;
     }
   } catch (error: any) {
+    console.log("error", error);
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {

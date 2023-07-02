@@ -4,7 +4,7 @@ export type AddParticipants = {
   election_id: number;
 };
 
-export type AddParticipantsResponse = {
+export type CreateParticipantsResponse = {
   name: string;
   post_id: number;
   election_id: number;
@@ -12,7 +12,6 @@ export type AddParticipantsResponse = {
   photo_url: string;
 };
 
-export type uploadPhoto = {};
 export type uploadPhotoResponse = string;
 
 export type UpdateParticipants = {

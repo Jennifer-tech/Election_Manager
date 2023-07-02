@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 
-const Categories = () => {
+const Admin = () => {
   const params = useParams();
   const [electionsCategories, setElectionsCategories] =
     useState<ElectionCategoriesResponse>([]);
@@ -116,4 +116,6 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Admin;
+
+// page.tsx;

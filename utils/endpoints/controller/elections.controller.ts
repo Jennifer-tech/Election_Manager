@@ -82,7 +82,6 @@ export const _createElection = async (
       throw new Error("Network Error");
     }
 
-    console.log("res", data);
     const res = await Elections.create(data);
 
     setLoading && setLoading(false);
@@ -111,7 +110,6 @@ export const _createElection = async (
       return;
     }
   } catch (error: any) {
-    console.log(error);
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {
@@ -173,7 +171,6 @@ export const _deleteElection = async (
 
     return true;
   } catch (error: any) {
-    console.log(error);
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {
@@ -223,7 +220,6 @@ export const _getElectionCategories = async (
     const res = await Elections.getElectionCategories(data);
 
     setLoading && setLoading(false);
-    console.log(res.data)
 
     if (res.data) {
       return res.data;
@@ -240,7 +236,6 @@ export const _getElectionCategories = async (
       return;
     }
   } catch (error: any) {
-    console.log(error);
     setLoading && setLoading(false);
 
     if (error?.message === "Network Error") {

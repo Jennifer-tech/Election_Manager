@@ -1,4 +1,5 @@
 export type GetAdmins = {};
+
 export type GetAdminsResponse = [
   {
     username: string;
@@ -6,10 +7,11 @@ export type GetAdminsResponse = [
   }
 ];
 
-export type CreateAdmin = {
-  username: string;
+export type CreateAdminData = {
+  email: string;
   password: string;
   election_id: number;
+  is_super: boolean;
 };
 
 export type CreateAdminResponse = string;

@@ -2,26 +2,27 @@
 
 import Alert, { type Alert as AlertType } from "@/components/Alert";
 import { DotLoader } from "@/components/Loaders";
-import { _createPost } from "@/utils/endpoints/controller/post.controller";
-import { CreatePostResponse } from "@/utils/endpoints/types/post.type";
+import { _createParticipant } from "@/utils/endpoints/controller/participants.controller";
+import { CreateParticipantsResponse } from "@/utils/endpoints/types/participants.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { MdOutlineClose } from "react-icons/md";
+import { useFilePicker } from "use-file-picker";
 import * as yup from "yup";
 import ModalOverlay from "../ModalOverlay";
 
 enum FieldsName {
-  PARTICIPANT = "participant",
+  NAME = "name",
 }
 
 interface InputFields {
-  participant: string;
+  name: string;
 }
 
 const ValidationSchema = yup
   .object({
-    participant: yup.string().required("Please provide a participant data"),
+    name: yup.string().required("Please provide a participant data"),
   })
   .required();
 
@@ -29,15 +30,32 @@ type Props = {
   isOpen: boolean;
   close: () => void;
   election_id: number;
+  post_id: number;
 };
 
-const AddParticipantModal = ({ close, isOpen, election_id }: Props) => {
+const AddParticipantModal = ({
+  close,
+  isOpen,
+  election_id,
+  post_id,
+}: Props) => {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<AlertType>({
     title: "",
     variant: "warn",
     onClose: () => closeAlert(),
     active: false,
+  });
+
+  const [
+    openFileSelector,
+    { filesContent, loading: fileLoading, errors, clear, plainFiles },
+  ] = useFilePicker({
+    readAs: "DataURL",
+    accept: "image/*",
+    multiple: true,
+    limitFilesConfig: { min: 1 },
+    maxFileSize: 3, // in megabytes
   });
 
   const closeAlert = () => {
@@ -53,16 +71,17 @@ const AddParticipantModal = ({ close, isOpen, election_id }: Props) => {
   });
 
   const onSubmit: SubmitHandler<InputFields> = async (data: InputFields) => {
+    if (filesContent.length === 0) return;
+
     setLoading(true);
-    const res: CreatePostResponse | undefined = await _createPost(
-      {
-        election_id,
-        post: data.participant,
-      },
-      alert,
-      setAlert,
-      setLoading
-    );
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("post_id", post_id.toString());
+    formData.append("election_id", election_id.toString());
+    formData.append("file", plainFiles[0]);
+
+    const res: CreateParticipantsResponse | undefined =
+      await _createParticipant(formData, alert, setAlert, setLoading);
 
     if (res) {
       close();
@@ -94,15 +113,15 @@ const AddParticipantModal = ({ close, isOpen, election_id }: Props) => {
           className="flex flex-col space-y-3 bg-white border border-shade-light rounded-md px-6 py-10"
         >
           <section className="relative">
-            {/* <div
+            <div
               className={`overflow-hidden flex h-12 border rounded-md w-full ${
-                formErrors[FieldsName.POST]?.message
+                formErrors[FieldsName.NAME]?.message
                   ? "border-red-600"
                   : "border-shade-medium/50"
               }`}
             >
               <Controller
-                name={FieldsName.POST}
+                name={FieldsName.NAME}
                 control={control}
                 render={({ field }) => (
                   <input
@@ -110,17 +129,35 @@ const AddParticipantModal = ({ close, isOpen, election_id }: Props) => {
                     autoComplete="on"
                     className="px-3 input-outline-none text-base h-full w-full"
                     type="text"
-                    placeholder="Presidential"
-                    id={FieldsName.POST}
+                    placeholder="John Doe"
+                    id={FieldsName.NAME}
                   />
                 )}
               />
             </div>
-            {formErrors[FieldsName.POST]?.message && (
+            {formErrors[FieldsName.NAME]?.message && (
               <p className="text-xs text-red-600">
-                {formErrors[FieldsName.POST]?.message}
+                {formErrors[FieldsName.NAME]?.message}
               </p>
-            )} */}
+            )}
+          </section>
+
+          <section className="relative flex space-x-3 items-center pb-5">
+            <button
+              onClick={() => openFileSelector()}
+              className="button py-1 px-4 text-sm"
+            >
+              Select files{" "}
+            </button>
+            <p className="text-sm text-gray-700 max-w-[55%] truncate">
+              {filesContent.length !== 0
+                ? filesContent[0].name
+                : "no file selected"}
+            </p>
+            <MdOutlineClose
+              onClick={() => clear()}
+              className="w-5 h-5 text-blue-950 hover:cursor-pointer"
+            />
           </section>
 
           {!loading ? (

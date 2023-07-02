@@ -1,8 +1,8 @@
 import axiosInstance from '../../config/axios'
-import { CreateAdmin } from '../types/admin.type';
+import { CreateAdminData } from '../types/admin.type';
 
 export class Admin {
-  static create(data: CreateAdmin) {
+  static create(data: CreateAdminData) {
     return axiosInstance.post("/admins", data);
   }
 

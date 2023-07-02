@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { MdOutlineClose } from "react-icons/md";
 import * as yup from "yup";
+import ModalOverlay from "../ModalOverlay";
 
 enum FieldsName {
   ELECTION = "election",
@@ -26,10 +27,10 @@ const ValidationSchema = yup
 
 type Props = {
   isOpen: boolean;
-  onClose: () => void;
+  close: () => void;
 };
 
-const ElectionForm = ({ isOpen, onClose }: Props) => {
+const ElectionForm = ({ isOpen, close }: Props) => {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<AlertType>({
     title: "",
@@ -64,7 +65,7 @@ const ElectionForm = ({ isOpen, onClose }: Props) => {
     console.log(res);
 
     if (res) {
-      onClose();
+      close();
     }
 
     setLoading(false);
@@ -76,7 +77,7 @@ const ElectionForm = ({ isOpen, onClose }: Props) => {
   useEffect(() => {
     document.addEventListener(
       "keydown",
-      (e) => e.key === "Escape" && onClose()
+      (e) => e.key === "Escape" && close()
     );
 
     return () => {
@@ -85,14 +86,10 @@ const ElectionForm = ({ isOpen, onClose }: Props) => {
   }, []);
 
   return (
-    <div
-      className={`z-50 flex ${
-        isOpen ? "md:flex -translate-y-full" : "md:flex"
-      } justify-center items-center overflow-auto fixed top-0 bottom-0 transition-ease bg-black/60 w-full`}
-    >
-      <section className="relative flex flex-col h-fit w-[80%] sm:w-[70%] md:w-[45%] lg:w-[40%] xl:w-[30%] overflow-hidden space-y-3 py-5 px-4 rounded-lg bg-white">
+    <ModalOverlay isOpen={isOpen} close={close} animate="UP">
+      <section className="relative flex flex-col h-fit w-[80%] sm:w-[70%] md:w-[45%] lg:w-[40%] xl:w-[30%] overflow-hidden space-y-3 self-center mx-auto  py-5 px-4 rounded-lg bg-white">
         <div
-          onClick={() => onClose()}
+          onClick={() => close()}
           className="hover:cursor-pointer absolute top-5 right-5"
         >
           <MdOutlineClose className="w-8 h-8 text-blue-950" />
@@ -148,7 +145,7 @@ const ElectionForm = ({ isOpen, onClose }: Props) => {
           )}
         </form>
       </section>
-    </div>
+    </ModalOverlay>
   );
 };
 
