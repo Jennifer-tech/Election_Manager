@@ -1,4 +1,4 @@
-import { type Alert as AlertType } from "@/components/Alert";
+import Alert, { type Alert as AlertType } from "@/components/Alert";
 import { _createVote } from "@/utils/endpoints/controller/votes.controller";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRef, useState } from "react";
@@ -114,9 +114,7 @@ const Vote = ({ isOpen, close, participant }: VoteProps) => {
         </form>
 
         <div className="w-full text-lg text-blue-950 text-center font-medium">
-          <p className="mb-5">
-            Do you wish vote for
-          </p>
+          <p className="mb-5">Do you wish vote for</p>
         </div>
 
         <div className="w-full text-xl font-extrabold text-blue-950 mb-5 text-center">
@@ -124,18 +122,28 @@ const Vote = ({ isOpen, close, participant }: VoteProps) => {
         </div>
 
         <section className="w-full flex flex-row items-center justify-center space-x-2.5">
-          <div onClick={() => hiddenButtonRef.current?.click()} className="button-outline border border-blue-950 rounded-2xl text-blue-950 w-fit px-6 lg:px-8 flex items-center py-2 lg:py-3 space-x-2 cursor-pointer hover:bg-blue-950">
+          <div
+            onClick={() => hiddenButtonRef.current?.click()}
+            className="button-outline border border-blue-950 rounded-2xl text-blue-950 w-fit px-6 lg:px-8 flex items-center py-2 lg:py-3 space-x-2 cursor-pointer hover:bg-blue-950"
+          >
             <p className="text-lg text-blue-950 font-semibold hover:text-white">
               Yes
             </p>
           </div>
 
-          <div onClick={() => close()} className="button-outline border border-blue-950 rounded-2xl text-blue-950 w-fit px-6 lg:px-8 flex items-center py-2 lg:py-3 space-x-2 cursor-pointer hover:bg-blue-950">
+          <div
+            onClick={() => close()}
+            className="button-outline border border-blue-950 rounded-2xl text-blue-950 w-fit px-6 lg:px-8 flex items-center py-2 lg:py-3 space-x-2 cursor-pointer hover:bg-blue-950"
+          >
             <p className="text-lg text-blue-950 font-semibold hover:text-white">
               No
             </p>
           </div>
         </section>
+
+        <span className="z-30 fixed top-3 right-3">
+          <Alert alert={alert} />
+        </span>
       </div>
     </ModalOverlay>
   );
