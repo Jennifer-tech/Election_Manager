@@ -34,7 +34,7 @@ const DeleteModal = ({ isOpen, close, done, context }: Props) => {
           </button>
           <button
             type="button"
-            onClick={done}
+            onClick={() => done()}
             className="delete-button py-2 px-4"
           >
             Delete

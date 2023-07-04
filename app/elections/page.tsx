@@ -119,7 +119,7 @@ const Elections = () => {
   };
 
   const handleEnd = async (id: string | number): Promise<void> => {
-    const {title} = elections.filter((election) => election.id === id)[0];
+    const { title } = elections.filter((election) => election.id === id)[0];
     const res = await _updateElectionResults(
       id,
       {
@@ -141,6 +141,7 @@ const Elections = () => {
       );
       setElections(filteredElections);
       setSelected(undefined);
+      setCreatePostToggle(false);
     }
 
     setTimeout(() => {
@@ -198,7 +199,9 @@ const Elections = () => {
         context="election"
         isOpen={deleteToggle}
         done={handleDelete}
-        close={() => setSelected(undefined)}
+        close={() => {
+          setDeleteToggle(!deleteToggle), setSelected(undefined);
+        }}
       />
 
       <CreatePostModal
