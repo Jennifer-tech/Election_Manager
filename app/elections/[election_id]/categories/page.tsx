@@ -4,13 +4,9 @@ import Alert, { type Alert as AlertType } from "@/components/Alert";
 import AddParticipantModal from "@/components/Modal/AddParticipantModal";
 import Participants from "@/components/Participants";
 import ThreeDotsDroplist from "@/components/ThreeDotsDroplist";
-import {
-  _getElectionParticipants
-} from "@/utils/endpoints/controller/elections.controller";
+import { _getElectionParticipants } from "@/utils/endpoints/controller/elections.controller";
 import { _deletePost } from "@/utils/endpoints/controller/post.controller";
-import {
-  ElectionParticipantsResponse
-} from "@/utils/endpoints/types/elections.type";
+import { ElectionParticipantsResponse } from "@/utils/endpoints/types/elections.type";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
@@ -99,6 +95,17 @@ const Categories = () => {
       <h1 className="text-xl font-semibold py-6 text-blue-950 uppercase px-10 mx-auto">
         {electionsCategories.title}
       </h1>
+{/* okay
+      {!electionsCategories.is_active && !electionsCategories.is_finished && (
+        <span className="underline hover:cursor-pointer text-xs p-1 text-gray-700 bg-green-100 rounded-md">
+          Activate
+        </span>
+      )}
+      {!electionsCategories.is_finished && (
+        <span className="underline hover:cursor-pointer text-xs p-1 text-gray-700 bg-green-100 rounded-md">
+          End
+        </span>
+      )} */}
 
       {electionsCategories?.posts &&
         electionsCategories.posts.map((category, i) => (
