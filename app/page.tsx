@@ -47,12 +47,12 @@ export default function Home() {
               </div>
             </span>
 
-            <Link href={STATISTICS_ROUTE}>
+            {/* <Link href={STATISTICS_ROUTE}>
               <div className="flex flex-col items-center justify-center h-52 my-5 md:h-80 border shadow-md hover:shadow-lg rounded-lg hover:cursor-pointer">
                 <MdRemoveRedEye className="w-20 h-20 fill-blue-950" />
                 <p className="text-lg text-blue-950">View Ongoing Poll</p>
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       ) : (
