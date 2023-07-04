@@ -53,7 +53,6 @@ const Elections = () => {
         id: v4(),
         title: "Activate election",
         callback: async (id: string | number): Promise<void> => {
-          console.log('activate')
           const election = elections.filter((election) => election.id === id);
           const res = await _updateElectionResults(
             id,
