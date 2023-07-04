@@ -52,18 +52,9 @@ const Elections = () => {
       {
         id: v4(),
         title: "Activate election",
-        callback: async (id: string | number): Promise<void> => {
-          const election = elections.filter((election) => election.id === id);
-          const res = await _updateElectionResults(
-            id,
-            {
-              is_active: true,
-              is_finished: false,
-              title: election[0].title ?? "",
-            },
-            alert,
-            setAlert
-          );
+        callback: (id: string | number): void => {
+          console.log("activate");
+          handleActivate(id);
         },
       },
       {
@@ -97,18 +88,8 @@ const Elections = () => {
       {
         id: v4(),
         title: <p className="text-red-600">End election</p>,
-        callback: async (id: string | number): Promise<void> => {
-          const election = elections.filter((election) => election.id === id);
-          const res = await _updateElectionResults(
-            id,
-            {
-              is_active: true,
-              is_finished: true,
-              title: election[0].title ?? "",
-            },
-            alert,
-            setAlert
-          );
+        callback: (id: string | number): void => {
+          handleEnd(id);
         },
       },
       {
@@ -122,6 +103,34 @@ const Elections = () => {
     ],
     []
   );
+
+  const handleActivate = async (id: string | number): Promise<void> => {
+    const election = elections.filter((election) => election.id === id);
+    const res = await _updateElectionResults(
+      id,
+      {
+        is_active: true,
+        is_finished: false,
+        title: election[0]?.title ?? "",
+      },
+      alert,
+      setAlert
+    );
+  };
+
+  const handleEnd = async (id: string | number): Promise<void> => {
+    const election = elections.filter((election) => election.id === id);
+    const res = await _updateElectionResults(
+      id,
+      {
+        is_active: true,
+        is_finished: true,
+        title: election[0].title ?? "",
+      },
+      alert,
+      setAlert
+    );
+  };
 
   const handleDelete = async () => {
     const res = await _deleteElection(selected as number, alert, setAlert);
