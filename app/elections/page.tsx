@@ -105,13 +105,13 @@ const Elections = () => {
   );
 
   const handleActivate = async (id: string | number): Promise<void> => {
-    const election = elections.filter((election) => election.id === id);
+    const { title } = elections.filter((election) => election.id === id)[0];
     const res = await _updateElectionResults(
       id,
       {
         is_active: true,
         is_finished: false,
-        title: election[0]?.title ?? "",
+        title: title ?? "",
       },
       alert,
       setAlert
@@ -119,13 +119,13 @@ const Elections = () => {
   };
 
   const handleEnd = async (id: string | number): Promise<void> => {
-    const election = elections.filter((election) => election.id === id);
+    const {title} = elections.filter((election) => election.id === id)[0];
     const res = await _updateElectionResults(
       id,
       {
         is_active: true,
         is_finished: true,
-        title: election[0].title ?? "",
+        title: title ?? "",
       },
       alert,
       setAlert
