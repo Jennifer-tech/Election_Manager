@@ -2,10 +2,8 @@
 import Alert, { type Alert as AlertType } from "@/components/Alert";
 import DropdownWrapper from "@/components/DropdownWrapper";
 import { DotLoader } from "@/components/Loaders";
-import useGlobalStore from "@/lib/store/global-store";
 import { _createAdmin } from "@/utils/endpoints/controller/admin.controller";
 import { _getElections } from "@/utils/endpoints/controller/elections.controller";
-import { CreateAdminResponse } from "@/utils/endpoints/types/admin.type";
 import { GetElectionsResponse } from "@/utils/endpoints/types/elections.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useEffect, useRef, useState } from "react";

@@ -4,6 +4,7 @@ import { ELECTION_CATEGORIES } from "@/utils/config/urls";
 import {
   _deleteElection,
   _getElections,
+  _updateElectionResults,
 } from "@/utils/endpoints/controller/elections.controller";
 import { GetElectionsResponse } from "@/utils/endpoints/types/elections.type";
 // import { Metadata } from "next";
@@ -22,7 +23,7 @@ import { v4 } from "uuid";
 // };
 
 const Elections = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [createPostToggle, setCreatePostToggle] = useState(false);
   const [deleteToggle, setDeleteToggle] = useState(false);
   const [addVotersToggle, setAddVotersToggle] = useState(false);
@@ -50,6 +51,23 @@ const Elections = () => {
       },
       {
         id: v4(),
+        title: "Activate election",
+        callback: async (id: string | number): Promise<void> => {
+          const election = elections.filter((election) => election.id === id);
+          const res = await _updateElectionResults(
+            id,
+            {
+              is_active: true,
+              is_finished: false,
+              title: election[0].title ?? "",
+            },
+            alert,
+            setAlert
+          );
+        },
+      },
+      {
+        id: v4(),
         title: "Create category",
         callback: (id: string | number): void => {
           setSelected(id as number), setCreatePostToggle(true);
@@ -67,6 +85,30 @@ const Elections = () => {
         title: "View admins",
         callback: (id: string | number): void => {
           router.push(`/elections/${id}/admins`);
+        },
+      },
+      {
+        id: v4(),
+        title: "View results",
+        callback: (id: string | number): void => {
+          router.push(`/elections/${id}/statistics`);
+        },
+      },
+      {
+        id: v4(),
+        title: <p className="text-red-600">End election</p>,
+        callback: async (id: string | number): Promise<void> => {
+          const election = elections.filter((election) => election.id === id);
+          const res = await _updateElectionResults(
+            id,
+            {
+              is_active: true,
+              is_finished: true,
+              title: election[0].title ?? "",
+            },
+            alert,
+            setAlert
+          );
         },
       },
       {
@@ -118,8 +160,21 @@ const Elections = () => {
           className="relative border border-gray-300 mx-auto w-[95%] mb-3 p-5 rounded-lg hover:shadow-lg cursor-pointer flex items-center justify-between"
         >
           <div className="w-full">
-            <Link href={ELECTION_CATEGORIES(election.id)}>
-              {election.title}
+            <Link
+              href={ELECTION_CATEGORIES(election.id)}
+              className="flex-1 flex items-center space-x-5"
+            >
+              <p className="">{election.title}</p>
+              {election.is_active && !election.is_finished && (
+                <p className="text-xs p-1 text-gray-700 bg-green-100 rounded-md">
+                  ongoing
+                </p>
+              )}
+              {election.is_finished && (
+                <p className="text-xs text-gray-700 p-1 bg-purple-300 rounded-md">
+                  concluded
+                </p>
+              )}
             </Link>
           </div>
 

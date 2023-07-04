@@ -40,7 +40,7 @@ const MobileSlideNav = ({ toggle, setToggle }: Props) => {
         <div className=" flex flex-col space-y-3 text-lg font-medium">
           <Home callback={() => setToggle(false)} />
           <Vote callback={() => setToggle(false)} />
-          <Statistics callback={() => setToggle(false)} />
+          {/* <Statistics callback={() => setToggle(false)} /> */}
         </div>
       </div>
     </div>
