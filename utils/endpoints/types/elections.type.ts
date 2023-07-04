@@ -61,6 +61,7 @@ export type ElectionParticipantsResponse = {
         election_id: number;
       }[];
       total_votes: number;
+      percent_votes: number;
     }[];
   }[];
 };

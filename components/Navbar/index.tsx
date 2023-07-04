@@ -48,7 +48,7 @@ const Navbar = () => {
             <div className="flex space-x-4 items-center">
               <Home />
               <Vote />
-              <Statistics />
+              {/* <Statistics /> */}
               <button onClick={() => clearStore()} className="button px-2 py-1">Log out</button>
             </div>
           ) : null}

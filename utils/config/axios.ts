@@ -6,7 +6,8 @@ const baseURL = "https://election-api-chimaobi-cc3efd7d6eef.herokuapp.com";
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Credentials": true,
+  "Access-Control-Allow-Headers": "*",
+  // "Access-Control-Allow-Credentials": true,
 };
 
 class BadResponseFormatError extends Error {
@@ -18,7 +19,7 @@ class BadResponseFormatError extends Error {
 const axiosInstance = axios.create({
   baseURL,
   timeout: 60000,
-  headers,
+  // headers,
   // withCredentials: true,
 });
 

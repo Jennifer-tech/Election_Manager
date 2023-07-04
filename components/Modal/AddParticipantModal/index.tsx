@@ -3,7 +3,6 @@
 import Alert, { type Alert as AlertType } from "@/components/Alert";
 import { DotLoader } from "@/components/Loaders";
 import { _createParticipant } from "@/utils/endpoints/controller/participants.controller";
-import { AddParticipantsResponse } from "@/utils/endpoints/types/participants.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -74,15 +73,15 @@ const AddParticipantModal = ({
     if (filesContent.length === 0) return;
 
     setLoading(true);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("post_id", post_id.toString());
+    formData.append("election_id", election_id.toString());
+    formData.append("file", plainFiles[0]);
 
-    const res: AddParticipantsResponse | undefined =
+    const res: boolean | undefined =
       await _createParticipant(
-        {
-          election_id: election_id,
-          name: data.name,
-          photo_url: filesContent[0]?.content ?? "",
-          post_id: post_id,
-        },
+        formData,
         alert,
         setAlert,
         setLoading
