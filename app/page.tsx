@@ -4,10 +4,7 @@ import Authentication from "@/components/Authentication";
 import CreateAdmin from "@/components/Modal/CreateAdmin";
 import ElectionForm from "@/components/Modal/ElectionForm";
 import useGlobalStore from "@/lib/store/global-store";
-import { STATISTICS_ROUTE } from "@/utils/config/urls";
-import Link from "next/link";
 import { useState } from "react";
-import { MdRemoveRedEye } from "react-icons/md";
 import { RiAddLine } from "react-icons/ri";
 
 export default function Home() {
